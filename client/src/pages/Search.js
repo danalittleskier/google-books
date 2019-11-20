@@ -25,13 +25,14 @@ class Search extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    console.log(this.state.search);
+
     API.searchBooks(this.state.search)
       .then(res => {
+        // console.log(res.data.items);
         if (res.data.status === "error") {
           throw new Error(res.data.message);
         }
-        this.setState({ results: res.data });
+        this.setState({ results: res.data.items });
       })
       .catch(err => this.setState({ error: err.message }));
   };
@@ -40,7 +41,7 @@ class Search extends Component {
     return (
       <div>
         <SearchForm
-          value={this.state.search}
+          search={this.state.search}
           handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange}
         />
