@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import DeleteBtn from "../components/DeleteBtn";
-import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
@@ -16,16 +15,19 @@ class Search extends Component {
     error: ""
   };
 
+
   handleInputChange = event => {
-    this.setState({ search: event.target.value });
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
-    console.log("test");
+    console.log(this.state.search);
     API.searchBooks(this.state.search)
       .then(res => {
-        console.log(this.state.search);
         if (res.data.status === "error") {
           throw new Error(res.data.message);
         }
@@ -33,6 +35,7 @@ class Search extends Component {
       })
       .catch(err => this.setState({ error: err.message }));
   };
+
   render() {
     return (
       <div>
