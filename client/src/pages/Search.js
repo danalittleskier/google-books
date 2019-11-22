@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import DeleteBtn from "../components/DeleteBtn";
 import API from "../utils/API";
+import SaveBtn from "../components/SaveBtn";
 import { Link } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
-import SearchResults from "../components/SearchResults";
+import Book from "../components/Book";
 
 
 
@@ -15,6 +15,11 @@ class Search extends Component {
     error: ""
   };
 
+  saveBook = id => {
+    API.saveBook(id)
+      .then(res => this.loadBooks())
+      .catch(err => console.log(err));
+  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -45,12 +50,25 @@ class Search extends Component {
           handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange}
         />
-        <div>
+        {this.state.results.length ? (
+          <ul className="list-group search-results">
 
-          <SearchResults results={this.state.results} />
-        </div>
+            {this.state.results.map(result => (
+              <Book key={result.id}
+                title={result.volumeInfo.title}
+                authors={result.volumeInfo.authors}
+                publishedDate={result.volumeInfo.publishedDate}
+                thumbnail={result.volumeInfo.imageLinks.thumbnail}
+                onClick={() => this.saveBook(result.id)}
+              />
+            ))}
+          </ul>
+        ) : (
+            <h3>No Results to Display</h3>
+          )}
       </div>
-    );
+    )
+
   }
 }
 

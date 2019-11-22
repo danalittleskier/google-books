@@ -1,4 +1,5 @@
 import React from "react";
+import SaveBtn from "../../components/SaveBtn";
 import "./style.css";
 
 function SearchResults(props) {
@@ -10,6 +11,10 @@ function SearchResults(props) {
           <p>{result.volumeInfo.title} by {result.volumeInfo.authors}</p>
           <p>Published - {result.volumeInfo.publishedDate}</p>
           <img alt="Book" src={result.volumeInfo.imageLinks.thumbnail} className="img-fluid" />
+          <div>
+            <SaveBtn onClick={() => props.saveBook(result.id)} />
+          </div>
+
         </li>
       ))}
     </ul>
