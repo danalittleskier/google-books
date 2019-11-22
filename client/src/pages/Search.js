@@ -51,7 +51,7 @@ class Search extends Component {
           handleInputChange={this.handleInputChange}
         />
         {this.state.results.length ? (
-          <ul className="list-group search-results">
+          <div className="container">
 
             {this.state.results.map(result => (
               <Book key={result.id}
@@ -62,9 +62,9 @@ class Search extends Component {
                 onClick={() => this.saveBook(result.id)}
               />
             ))}
-          </ul>
+          </div>
         ) : (
-            <h3>No Results to Display</h3>
+            <h5>No Results to Display</h5>
           )}
       </div>
     )

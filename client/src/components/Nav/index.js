@@ -2,13 +2,15 @@ import React from "react";
 
 function Nav() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a className="navbar-brand" href="/search">
+    <nav className="z-depth-0">
+      <div class="nav-wrapper grey darken-3">
+      <a className="brand-logo left" href="/search">
         Google Books Search
       </a>
-      <a className="navbar-brand" href="/books">
+      <a className="brand-logo right" href="/books">
         Saved Books
       </a>
+      </div>
     </nav>
   );
 }

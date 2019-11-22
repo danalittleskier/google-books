@@ -6,7 +6,7 @@ function SearchForm({search, handleFormSubmit, handleInputChange}) {
   return (
     <form className="search">
       <div className="form-group">
-        <label htmlFor="search">Book Name:</label>
+        <label htmlFor="label-icon">Book Name:</label>
         <input
           onChange={handleInputChange}
           value={search}
