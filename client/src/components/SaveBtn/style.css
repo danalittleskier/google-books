@@ -1,4 +1,5 @@
 .save-btn {
   float: left;
   color: #19412d;
+  width: fit-content;
 }
