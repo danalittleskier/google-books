@@ -26,11 +26,10 @@ class Search extends Component {
       thumbnail: bookInfo.imageLinks.thumbnail
     }
     API.saveBook(book)
-      .then(res => 
-        {
-          this.setState({ message: "Saved Book" });
-          console.log(book);
-         })
+      .then(res => {
+        this.setState({ message: "Saved Book" });
+        console.log(book);
+      })
       .catch(err => console.log(err));
   };
 
@@ -50,39 +49,40 @@ class Search extends Component {
         if (res.data.status === "error") {
           throw new Error(res.data.message);
         }
-        res.data.items ? 
-        this.setState({ results: res.data.items }) : 
-        this.setState({ results: []});
-        
+        res.data.items ?
+          this.setState({ results: res.data.items }) :
+          this.setState({ results: [] });
+
       })
       .catch(err => this.setState({ error: err.message }));
   };
 
   render() {
     return (
-      <div>
+      <div className="container">
         <SearchForm
           search={this.state.search}
           handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange}
         />
-        
+
         {this.state.results.length ? (
           <div className="container">
-
-            {this.state.results.map(result => (
-              <Book key={result.id}
-                title={result.volumeInfo.title}
-                authors={result.volumeInfo.authors}
-                publishedDate={result.volumeInfo.publishedDate}
-                thumbnail={result.volumeInfo.imageLinks ? result.volumeInfo.imageLinks.thumbnail : ""}
-                description={result.volumeInfo.description ? result.volumeInfo.description : ""}
-                saveBookClick={() => this.saveBook(result.id, result.volumeInfo)}
-              />
-            ))}
+            <div className="row"  >
+              {this.state.results.map(result => (
+                <Book key={result.id}
+                  title={result.volumeInfo.title}
+                  authors={result.volumeInfo.authors}
+                  publishedDate={result.volumeInfo.publishedDate}
+                  thumbnail={result.volumeInfo.imageLinks ? result.volumeInfo.imageLinks.thumbnail : ""}
+                  description={result.volumeInfo.description ? result.volumeInfo.description : ""}
+                  saveBookClick={() => this.saveBook(result.id, result.volumeInfo)}
+                />
+              ))}
+            </div>
           </div>
         ) : (
-        <h5>{this.state.message}</h5>
+            <h5>{this.state.message}</h5>
           )}
       </div>
     )

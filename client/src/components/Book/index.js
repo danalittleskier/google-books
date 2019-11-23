@@ -5,8 +5,8 @@ import "./style.css";
 
 function Book({ id, title, authors, publishedDate, description, thumbnail, saveBookClick }) {
     return (
-        <div className="row" key={id} >
-            <div className="col s12 m6">
+        
+            <div key={id} className="col s12 m6">
                 <div className="card large">
                     <div className="card-image">
                         <img alt="Book" src={thumbnail} />
@@ -23,7 +23,7 @@ function Book({ id, title, authors, publishedDate, description, thumbnail, saveB
                     <SaveBtn id={id} onClick={saveBookClick} />
                 </div>
             </div>
-        </div>
+        
     </div>
         
     )
