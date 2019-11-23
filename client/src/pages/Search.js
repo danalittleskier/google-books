@@ -12,12 +12,25 @@ class Search extends Component {
     search: "",
     books: [],
     results: [],
-    error: ""
+    error: "",
+    message: "No Results to Display"
   };
 
-  saveBook = id => {
-    API.saveBook(id)
-      .then(res => this.loadBooks())
+  saveBook = (id, bookInfo) => {
+    const book = {
+      id: id,
+      title: bookInfo.title,
+      author: bookInfo.authors[0],
+      publishedDate: bookInfo.publishedDate,
+      synopsis: bookInfo.description,
+      thumbnail: bookInfo.imageLinks.thumbnail
+    }
+    API.saveBook(book)
+      .then(res => 
+        {
+          this.setState({ message: "Saved Book" });
+          console.log(book);
+         })
       .catch(err => console.log(err));
   };
 
@@ -33,11 +46,14 @@ class Search extends Component {
 
     API.searchBooks(this.state.search)
       .then(res => {
-        // console.log(res.data.items);
+        console.log(res.data.items);
         if (res.data.status === "error") {
           throw new Error(res.data.message);
         }
-        this.setState({ results: res.data.items });
+        res.data.items ? 
+        this.setState({ results: res.data.items }) : 
+        this.setState({ results: []});
+        
       })
       .catch(err => this.setState({ error: err.message }));
   };
@@ -50,6 +66,7 @@ class Search extends Component {
           handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange}
         />
+        
         {this.state.results.length ? (
           <div className="container">
 
@@ -58,13 +75,14 @@ class Search extends Component {
                 title={result.volumeInfo.title}
                 authors={result.volumeInfo.authors}
                 publishedDate={result.volumeInfo.publishedDate}
-                thumbnail={result.volumeInfo.imageLinks.thumbnail}
-                onClick={() => this.saveBook(result.id)}
+                thumbnail={result.volumeInfo.imageLinks ? result.volumeInfo.imageLinks.thumbnail : ""}
+                description={result.volumeInfo.description ? result.volumeInfo.description : ""}
+                saveBookClick={() => this.saveBook(result.id, result.volumeInfo)}
               />
             ))}
           </div>
         ) : (
-            <h5>No Results to Display</h5>
+        <h5>{this.state.message}</h5>
           )}
       </div>
     )

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import DeleteBtn from "../components/DeleteBtn";
+import Book from "../components/Book";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
 
@@ -54,17 +55,25 @@ class Books extends Component {
 
             <div>
                 {this.state.books.length ? (
-              <div>
-                {this.state.books.map(book => (
-                  <div key={book._id}>
-                    <Link to={"/books/" + book._id}>
-                      <strong>
-                        {book.title} by {book.author}
-                      </strong>
-                    </Link>
+              <div className="container">
+                {this.state.books.map(result => (
+                  <Book key={result.id}
+                  title={result.title}
+                  authors={result.author}
+                  publishedDate={result.publishedDate}
+                  description={result.synopsis}
+                  thumbnail={result.thumbnail ? result.thumbnail : ""}
+                  saveBookClick={() => this.saveBook(result.id, result.volumeInfo)}
+                />
+                  // <div key={book._id}>
+                  //   <Link to={"/books/" + book._id}>
+                  //     <strong>
+                  //       {book.title} by {book.author}
+                  //     </strong>
+                  //   </Link>
                     
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-                  </div>
+                  //   <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                  // </div>
                 ))}
               </div>
             ) : (
