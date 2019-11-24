@@ -13,12 +13,12 @@ function SearchForm({search, handleFormSubmit, handleInputChange}) {
           name="search"
           type="text"
           className="form-control"
-          placeholder="Type in a book name to begin"
+          placeholder="Type in a book title"
           id="search"
         />
-           {console.log(search)}
-        <button onClick={handleFormSubmit} className="btn btn-success">
-          Search
+
+        <button onClick={handleFormSubmit} className="btn waves-effect waves-light">
+          Search<i class="material-icons right">send</i>
         </button>
       </div>
     </form>

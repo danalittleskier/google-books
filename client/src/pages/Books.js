@@ -26,7 +26,10 @@ class Books extends Component {
 
   deleteBook = id => {
     API.deleteBook(id)
-      .then(res => this.loadBooks())
+      .then(res => {
+        this.setState({ message: "Deleted Book" });
+        this.loadBooks();
+      })
       .catch(err => console.log(err));
   };
 
@@ -35,19 +38,6 @@ class Books extends Component {
     this.setState({
       [name]: value
     });
-  };
-
-  handleFormSubmit = event => {
-    event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveBook({
-        title: this.state.title,
-        author: this.state.author,
-        synopsis: this.state.synopsis
-      })
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err));
-    }
   };
 
   render() {
@@ -66,8 +56,11 @@ class Books extends Component {
                   publishedDate={result.publishedDate}
                   description={result.synopsis}
                   thumbnail={result.thumbnail ? result.thumbnail : ""}
-                  saveBookClick={() => this.saveBook(result.id, result.volumeInfo)}
-                />
+                  deleteButton={true}
+                  bookClick={() => this.deleteBook(result._id)}>
+
+                </Book>
+
               ))}
             </div>
           </div>

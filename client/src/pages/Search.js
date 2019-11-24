@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import API from "../utils/API";
-import SaveBtn from "../components/SaveBtn";
 import { Link } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import Book from "../components/Book";
@@ -10,7 +9,6 @@ import Book from "../components/Book";
 class Search extends Component {
   state = {
     search: "",
-    books: [],
     results: [],
     error: "",
     message: "No Results to Display"
@@ -76,7 +74,8 @@ class Search extends Component {
                   publishedDate={result.volumeInfo.publishedDate}
                   thumbnail={result.volumeInfo.imageLinks ? result.volumeInfo.imageLinks.thumbnail : ""}
                   description={result.volumeInfo.description ? result.volumeInfo.description : ""}
-                  saveBookClick={() => this.saveBook(result.id, result.volumeInfo)}
+                  deleteButton={false}
+                  bookClick={() => this.saveBook(result.id, result.volumeInfo)}
                 />
               ))}
             </div>
