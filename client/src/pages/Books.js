@@ -9,7 +9,8 @@ class Books extends Component {
     books: [],
     title: "",
     author: "",
-    synopsis: ""
+    synopsis: "",
+    message: "No books available in your library"
   };
 
   componentDidMount() {
@@ -27,7 +28,7 @@ class Books extends Component {
   deleteBook = id => {
     API.deleteBook(id)
       .then(res => {
-        this.setState({ message: "Deleted Book" });
+        this.setState({ message: "The book was removed from your library" });
         this.loadBooks();
       })
       .catch(err => console.log(err));
@@ -65,7 +66,7 @@ class Books extends Component {
             </div>
           </div>
         ) : (
-            <h3>No Results to Display</h3>
+            <h3>{this.state.message}</h3>
           )}
       </div>
     )

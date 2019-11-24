@@ -6,7 +6,7 @@ import "./style.css";
 function Book({ id, title, authors, publishedDate, description, thumbnail, deleteButton, bookClick }) {
     return (
         
-            <div key={id} className="col s12 m6">
+            <div key={id} className="col s12 m4">
                 <div className="card large">
                     <div className="card-image">
                         <img alt="Book" src={thumbnail} />

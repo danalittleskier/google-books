@@ -25,7 +25,7 @@ class Search extends Component {
     }
     API.saveBook(book)
       .then(res => {
-        this.setState({ message: "Saved Book" });
+        this.setState({ results: [], search: "", message: "Your book was saved to the reading list" });
         console.log(book);
       })
       .catch(err => console.log(err));
