@@ -16,7 +16,7 @@ This app searches for books by hitting the Google Books API and allows the user 
 
 ### Screenshot
 
-![Screenshot](public/bookslibrary_screenshot.png)
+![Screenshot](client/public/bookslibrary_screenshot.png)
 
 ### Role
 
